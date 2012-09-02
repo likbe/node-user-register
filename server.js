@@ -5,6 +5,7 @@ var express = require("express");
 var redisStore = require("connect-redis")(express);
 var path = require("path");
 var mongoose = require("mongoose");
+var socketio = require("socket.io");
 
 var accountService = require("./apis/accountService.js");
 
@@ -103,4 +104,30 @@ app.post('/user/logout', accountRouter.logout);
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
+
+var io = socketio.listen(server);
+io.set("store", new socketio.RedisStore);
+
+// In this example we have one admin client socket that receives messages from others.
+
+io.sockets.on('connection', function(socket) {
+  // Promote this socket as admin
+  socket.on(config.monitoring.socketMessage, function() {
+
+    // Save the socket id to Redis so that all processes can access it.
+    client.set("adminsocket", socket.id, function(err) {
+      if (err) throw err;
+      console.log("Admin socket is now" + socket.id);
+    });
+  });
+
+  socket.on("sendToBAM", function(msg) {
+
+    // Fetch the socket id from Redis
+    client.get("adminsocket", function(err, socketId) {
+      if (err) throw err;
+      io.sockets.socket(socketId).emit(msg);
+    });
+  });
+});
 
