@@ -23,7 +23,7 @@ exports.registerUser = function(email, firstname, lastname, callback) {
 
 exports.findUserByActivationKey = function(activationKey, callback) {
   UserActivation.findOne({activationKey: activationKey}, function(err, result) {
-    if (!result) { callback(err); }
+    if (!result) { callback('1'); }
     else {
       User.findOne({_id: result.user_id}, function(err2, user) {
         callback(err || err2, user);

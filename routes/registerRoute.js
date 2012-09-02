@@ -16,15 +16,16 @@ exports.registerUser = function(req, res) {
 
 exports.activate = function(req, res) {
   register.findUserByActivationKey(req.params.activationKey, function (err, user) {
-    if (err) { res.end('Error while finding activation key : ' + req.params.activationKey); }
+    if (err) { res.render('activate', { user: null, error: err }); }
     else res.render('activate', { user : user, activationKey : req.params.activationKey });    
   });
 }
 
 exports.activateUser = function(req, res) {
   register.activateUser(req.body.activationKey, req.body.password, function(err, user) {
-    if (err) res.end('unable to get user from userid / userActivation');
-    else res.render('greetings', {user : user});
+    console.log(err);
+    if (err) { res.render('greetings', { error : err}); }
+    else { res.render('greetings', {user : user}); }
   });
 }
 
