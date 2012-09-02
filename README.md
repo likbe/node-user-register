@@ -1,4 +1,13 @@
-node-user-register
-==================
+Node.JS User Register
+=====================
 
-User registration system in Node.JS, Redis and MongoDb
+- Jade templates
+- Redis Session Store 
+- MongoDB Database
+- Mongoose ODM
+- Passport.JS authentication / MongoDb
+- BCrypt hash passwords
+- Mocha unit tests
+
+To execute unit tests, just run 'make'
+

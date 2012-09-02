@@ -1,0 +1,28 @@
+doctype 5
+html(lang="en")
+head
+  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
+  title 'Node.JS User Registration'
+  script(type='text/javascript', src='/socket.io/socket.io.js')
+  script(type='text/javascript', src='/static/js/client.js')
+  script(type='text/javascript', src='/static/js/jquery.js')
+body
+  h1 Node.JS User Registration
+  h2 Register
+  form(name='form-register',action='register',method='post')
+    div
+      label Firstname
+      input(id='fn',name='firstname',type='text')
+    div
+      label Lastname
+      input(id='ln',name='lastname',type='text')
+    div
+      label Email
+      input(id='em',name='email',type='text')
+    div
+      label Email confirmation
+      input(id='emc',name='emailConfirmation',type='text')
+    div
+      button(type='submit') Register
+
+ 

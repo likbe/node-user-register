@@ -1,0 +1,20 @@
+doctype 5
+html(lang="en")
+head
+  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
+  title 'Node.JS User registration'
+body
+  h1 Node.JS User Registration
+  h2 Account activation : only one step left,
+  div
+    - if (user)
+      p  #{user.firstname}, you have successfully confirmed your e-mail address !
+      p Now we need you to choose a password
+      form(name='form-activate',action='/user/activate',method='post')  
+        div
+          input(id='pa',name='password',type='password')
+        div
+          input(id='pac',name='passwordConfirmation',type='password')
+        div
+          input(type='hidden',name='activationKey',value='#{activationKey}')
+          button(type='submit') Activate

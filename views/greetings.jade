@@ -1,0 +1,17 @@
+doctype 5
+html(lang="en")
+head
+  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
+  script(type='text/javascript', src='../static/js/jquery.js')
+  script(type='text/javascript', src='../static/js/angular.js')
+  script(type='text/javascript', src='../static/js/userprofile.js')
+  script(type='text/javascript', src='../static/js/logout.js')
+  title 'Node.JS User Registration'
+body(ng-app='GravatarApp')
+  h1 Node.JS User Registration
+  h2 Account activated successfully
+  div(id='result')
+    h3 Great, you can now sign-in #{user.firstname} !
+    h4
+      a(href='/', id='home-action')
+        p Back to home
