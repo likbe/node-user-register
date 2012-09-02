@@ -49,10 +49,12 @@ app.configure(function() {
   app.use(express.cookieParser());
 
   // Configure session to use Redis as store
- app.use(express.session({store: new redisStore
-        , secret: 'secret'
-        , key: 'express.sid'}
-        ));
+  app.use(express.session({ store: new redisStore({
+    host:config.redis.host, 
+    port:config.redis.port, 
+    prefix:config.redis.prefix}), 
+    secret:config.redis.secret })
+  );
  
   app.use(passport.initialize());
   app.use(passport.session());
