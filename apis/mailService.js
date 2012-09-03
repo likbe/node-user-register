@@ -1,5 +1,6 @@
 var config = require('../config.js');
 var mandrill = require('node-mandrill')(config.mandrill.apiKey);
+var logger = require("./loggerService.js").logger;
 
 exports.sendActivationMail = function(email, firstname, lastname, activationKey, callback) {
   var activationLink = "http://localhost:8888/user/activate/" + activationKey;
@@ -14,7 +15,7 @@ exports.sendActivationMail = function(email, firstname, lastname, activationKey,
     }
   }, function(error, response)
   {
-    //TODO Add error to log
+    logger.log('error', 'unable to send activation mail to user : ' + email)
     callback(error, response);
   });
 }
