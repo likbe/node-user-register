@@ -7,6 +7,7 @@ var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 var account = require('./accountService.js');
 var mailService = require('./mailService.js');
+var logger = require("./loggerService.js").logger;
 
 exports.registerUser = function(email, firstname, lastname, callback) {
   var userId = new mongoose.Types.ObjectId;
@@ -23,9 +24,11 @@ exports.registerUser = function(email, firstname, lastname, callback) {
 
 exports.findUserByActivationKey = function(activationKey, callback) {
   UserActivation.findOne({activationKey: activationKey}, function(err, result) {
-    if (!result) { callback('1'); }
+    if (!result) { logger.info('findUserByActivationKey - Unable to find activationKey:' + activationKey); callback('1'); }
     else {
+      logger.info('findUserByActivationKey - Found activationKey: ' + activationKey);
       User.findOne({_id: result.user_id}, function(err2, user) {
+        logger.info('findUserByActivationKey - Found user: ' + user.email + ' from activationKey: ' + activationKey)
         callback(err || err2, user);
       });
     }

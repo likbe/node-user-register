@@ -15,7 +15,7 @@ exports.sendActivationMail = function(email, firstname, lastname, activationKey,
     }
   }, function(error, response)
   {
-    logger.log('error', 'unable to send activation mail to user : ' + email)
+    logger.error('unable to send activation mail to user : ' + email)
     callback(error, response);
   });
 }
