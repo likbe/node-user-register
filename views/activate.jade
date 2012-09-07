@@ -22,3 +22,9 @@ body
     h2 Oops, something went wrong...
     div
       p It seems that your activation key has expired or is invalid
+      p Thanks to type your e-mail address to receive a new activation link
+      form(name='form-resend-activation',action='/user/resend-activation-link',method='post')
+        div
+          input(id='em', name='email',type='text')
+        div
+          button(type='submit') Send me a new activation link

@@ -23,7 +23,6 @@ exports.cryptPassword = function(password, callback) {
 }
 
 exports.validatePassword = function(login, password, callback) {
-  // todo log something
    this.findUserByEmail(login, function(err, user) {
    		if  (err || !user) { logger.info('validatePassword - Could not find user'); callback(1, null); }
    		else {

@@ -8,7 +8,14 @@ head
   script(type='text/javascript', src='/static/js/jquery.js')
 body
   h1 Node.JS User Registration
-  h2 Register
+  -if (user && user.status == 'NotYetRegistered')
+    h2 You are not yet not-yet-registered
+    h3 You can register now using the form below:
+  -else if (user && user.status == 'NoAccountForGivenEmail')
+    h2 User registration 
+    h3 You do not have account for the given email address, please register now using the form below:
+  - else
+    h2 User Registration
   form(name='form-register',action='register',method='post')
     div
       label Firstname
