@@ -39,7 +39,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
-var app = module.exports = express.createServer();
+var app = module.exports = express();
 var server = http.createServer(app);
 
 app.configure(function() {
