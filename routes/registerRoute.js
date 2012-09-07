@@ -3,7 +3,7 @@ var UserActivation = require('../models/userActivation.js');
 var register = require('../apis/registerService.js');
 
 exports.index = function(req, res) {
-   res.render('register');
+   res.render('register', {user : null});
 }
 
 exports.registerUser = function(req, res) {
@@ -23,8 +23,10 @@ exports.activate = function(req, res) {
 
 exports.activateUser = function(req, res) {
   register.activateUser(req.body.activationKey, req.body.password, function(err, user) {
-    console.log(err);
-    if (err) { res.render('greetings', { error : err}); }
+    if (err) { 
+      logger.info('activateUser - Unable to activate user using activation key:' + req.body.activationKey);
+      res.render('greetings', { error : err}); 
+    }
     else { res.render('greetings', {user : user}); }
   });
 }
@@ -41,5 +43,20 @@ exports.listUsers = function(req, res) {
   {
     if (err) res.end('unable to list users');
     else res.render('users', {usersWithUserActivations: usersWithUserActivations});
+  });
+}
+
+exports.resendActivationLink = function(req, res) {
+  register.resendActivationLink(req.body.email, function(err, user) {
+    if (!err) { 
+      res.render('activationResent', {user : user});
+    }
+    else if (err == 1) {
+      res.render('register', {user : { email:req.body.email, status:'NoAccountForGivenEmail'  }});
+    }
+    else {
+      logger.error('resendActivationLink - user: ' + user.email + ' exist. But resend failed with error: ' + err);
+      res.end('We are unable to resend your activation key. Our support service will contact you as soon as possible.');
+    }
   });
 }

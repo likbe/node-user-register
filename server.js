@@ -104,6 +104,8 @@ app.post('/user/login',
 
 app.post('/user/logout', accountRouter.logout);
 
+app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
+
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
 

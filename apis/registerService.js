@@ -72,5 +72,25 @@ exports.findUsersWithActivationKeys = function(callback) {
     }, function(err) {
       callback(null, result);
     });
-});
-  }
+  });
+}
+
+exports.findActivationKeyByUserId = function(userId, callback) {
+  UserActivation.findOne({user_id: userId}, function(err, activationKey) {
+    callback(err, activationKey);
+  });
+}
+
+exports.resendActivationLink = function(email, callback) {
+  logger.info('resendActivationLink - Try to resend activation link to user:' + email);
+  account.findUserByEmail(email, function(err, user) {
+    if (!user) { callback(1, null); }
+    else {
+      module.exports.findActivationKeyByUserId(user._id, function(err, activationKey) {
+        mailService.sendActivationMail(email, user.firstname, user.lastname, activationKey, function(err, response) {
+          callback(err, user);
+        });
+      });
+    }
+  });
+}
