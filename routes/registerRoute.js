@@ -1,7 +1,7 @@
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 var register = require('../apis/registerService.js');
-var errors = require('./errors.js');
+var errors = require('../apis/errors.js');
 
 exports.index = function(req, res) {
    res.render('register', {user : null});
@@ -10,8 +10,11 @@ exports.index = function(req, res) {
 exports.registerUser = function(req, res) {
   register.registerUser(req.body.email, req.body.firstname, req.body.lastname, function(err) 
   {
-    if (err) res.end('unable to register the user');
-    res.redirect('/');  
+    if (err == errors.USER_ALREADY_EXIST) {
+      res.end('user already exists');
+    }
+    else if (err) { res.end('unable to register the user'); }
+    else { res.redirect('/'); } 
   });
 }
 

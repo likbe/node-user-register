@@ -1,7 +1,7 @@
 var errors = {};
 
 // REGISTER
-Object.defineProperty(errors,'USER_ALREADY_EXIST',{value:999999});
+Object.defineProperty(errors,'USER_ALREADY_EXISTS',{value:999999});
 Object.defineProperty(errors,'UNABLE_TO_FIND_USER_TO_RESEND_MAIL',{value:999998});
 
 //ACCOUNT 

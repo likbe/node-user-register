@@ -13,13 +13,12 @@ var errors = require("./errors.js");
 exports.registerUser = function(email, firstname, lastname, callback) {
   
   account.exists(email, function(err, exists) {
-    logger.info('check if the user:' + email + ' exists');
     if (exists) {
-      logger.info('user:' + email + ' already exists');
+      logger.info('registerUser - User:' + email + ' already exists');
       callback(errors.USER_ALREADY_EXISTS, null);
     }
     else {
-      logger.info('user:' +  email + ' does not already exists');
+      logger.info('registerUser - User:' +  email + ' does not already exists');
       var userId = new mongoose.Types.ObjectId;
       var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
       user.save(function (err) {
