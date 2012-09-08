@@ -79,10 +79,10 @@ exports.login = function(id, callback) {
   });
 }
 
-exports.exists = function(email) {
+exports.exists = function(email, callback) {
   this.findUserByEmail(email, function(err, user) {
-    if (!err && user) { return true;}
-    else {return false;}
+    if (err || !user) { callback(err, false); }
+    else { callback(err, true); }
   });
 }
 

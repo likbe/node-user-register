@@ -11,21 +11,27 @@ var logger = require("./loggerService.js").logger;
 var errors = require("./errors.js");
 
 exports.registerUser = function(email, firstname, lastname, callback) {
-  if (account.exists(email)) {
-    callback(errors.USER_ALREADY_EXISTS, null);
-  }
-  else {
-    var userId = new mongoose.Types.ObjectId;
-    var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
-    user.save(function (err) {
-        var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
-        userActivation.save(function(err2) {
-          mailService.sendActivationMail(email, firstname, lastname, userActivation.activationKey, function(err3, response) {
-            callback(err || err2 || err3, user);
+  
+  account.exists(email, function(err, exists) {
+    logger.info('check if the user:' + email + ' exists');
+    if (exists) {
+      logger.info('user:' + email + ' already exists');
+      callback(errors.USER_ALREADY_EXISTS, null);
+    }
+    else {
+      logger.info('user:' +  email + ' does not already exists');
+      var userId = new mongoose.Types.ObjectId;
+      var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+      user.save(function (err) {
+          var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
+          userActivation.save(function(err2) {
+            mailService.sendActivationMail(email, firstname, lastname, userActivation.activationKey, function(err3, response) {
+              callback(err || err2 || err3, user);
+          });
         });
       });
-    });
-  }
+    }
+  });
 }
 
 exports.findUserByActivationKey = function(activationKey, callback) {
