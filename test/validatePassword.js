@@ -7,6 +7,8 @@ var account = require('../apis/accountService.js');
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 
+var errors = require('../apis/errors.js');
+
 function initializeUser(cb) {
 	var userId = new mongoose.Types.ObjectId;
 	mongoose.connect('mongodb://localhost/users');
@@ -72,9 +74,9 @@ describe('Validate password', function() {
 				});	
 			});
 		});
-		it('should be return error code 1', function() {
-			should.exist(error);
-			error.should.equal(1);
+		it('should be return error code INVALID_PASSWORD_USER_DOES_NOT_EXIST', function() {
+			should.exist(error, 'Error should exists');
+			error.should.equal(errors.INVALID_PASSWORD_USER_DOES_NOT_EXIST);
 			should.not.exist(currentUser, 'user does not exist');
 		});
 	});
@@ -97,10 +99,10 @@ describe('Validate password', function() {
 				});
 			});
 		});
-		it('should be return error code 2', function() {
-			should.exist(error);
-			error.should.equal(2);
-			should.not.exist(currentUser, 'user does not exist');
+		it('should be return error INVALID_PASSWORD_USER_IS_NOT_ACTIVE', function() {
+			should.exist(error, 'Error should exists');
+			error.should.equal(errors.INVALID_PASSWORD_USER_IS_NOT_ACTIVE);
+			should.not.exist(currentUser, 'user does not exists');
 		});
 	});
 });
@@ -120,9 +122,9 @@ describe('Validate password', function() {
 				});	
 			});
 		});
-		it('should be return error code 3', function() {
-			should.exist(error);
-			error.should.equal(3);
+		it('should be return error code INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH', function() {
+			should.exist(error, 'Error should exists');
+			error.should.equal(errors.INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH);
 			should.not.exist(currentUser, 'user does not exist');
 		});
 	});

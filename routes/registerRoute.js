@@ -1,6 +1,7 @@
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 var register = require('../apis/registerService.js');
+var errors = require('./errors.js');
 
 exports.index = function(req, res) {
    res.render('register', {user : null});
@@ -51,7 +52,7 @@ exports.resendActivationLink = function(req, res) {
     if (!err) { 
       res.render('activationResent', {user : user});
     }
-    else if (err == 1) {
+    else if (err == errors.UNABLE_TO_FIND_USER_TO_RESEND_MAIL) {
       res.render('register', {user : { email:req.body.email, status:'NoAccountForGivenEmail'  }});
     }
     else {
