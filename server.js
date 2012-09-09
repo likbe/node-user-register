@@ -7,7 +7,6 @@ var path = require("path");
 var mongoose = require("mongoose");
 var socketio = require("socket.io");
 var errors = require("./apis/errors.js");
-
 var accountService = require("./apis/accountService.js");
 
 var passport = require("passport");
