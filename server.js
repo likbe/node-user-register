@@ -5,6 +5,7 @@ var express = require("express");
 var redisStore = require("connect-redis")(express);
 var path = require("path");
 var mongoose = require("mongoose");
+var errors = require("./apis/errors.js");
 
 var accountService = require("./apis/accountService.js");
 
@@ -27,9 +28,9 @@ passport.use(new LocalStrategy(
   function(username, password, done) {   
         accountService.validatePassword(username, password, function(err, user) {
             if (err) {
-              if (err == 1) { return done(null, false, {message: 'Unknown user ' + username}); }
-              else if (err == 2) { return done(null, false, {message: 'User is inactive'}); }
-              else if (err == 3) { return done(null, false, {message: 'Invalid password'}); }
+              if (err == errors.INVALID_PASSWORD_USER_DOES_NOT_EXIST) { return done(null, false, {message: 'Unknown user ' + username}); }
+              else if (err == errors.INVALID_PASSWORD_USER_IS_NOT_ACTIVE) { return done(null, false, {message: 'User is inactive'}); }
+              else if (err == errors.INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH) { return done(null, false, {message: 'Invalid password'}); }
             }
             else
             {

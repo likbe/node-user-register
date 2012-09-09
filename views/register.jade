@@ -15,6 +15,8 @@ body
     h2 User registration 
     h3 You do not have account for the given email address, please register now using the form below:
   - else
+    - if (error)
+      p(class='error-message') #{error} 
     h2 User Registration
   form(name='form-register',action='register',method='post')
     div

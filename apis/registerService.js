@@ -11,7 +11,6 @@ var logger = require("./loggerService.js").logger;
 var errors = require("./errors.js");
 
 exports.registerUser = function(email, firstname, lastname, callback) {
-  
   account.exists(email, function(err, exists) {
     if (exists) {
       logger.info('registerUser - User:' + email + ' already exists');

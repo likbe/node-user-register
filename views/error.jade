@@ -1,0 +1,18 @@
+doctype 5
+html(lang="en")
+head
+  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
+  script(type='text/javascript', src='../static/js/jquery.js')
+  script(type='text/javascript', src='../static/js/angular.js')
+  script(type='text/javascript', src='../static/js/userprofile.js')
+  script(type='text/javascript', src='../static/js/logout.js')
+  title 'Node.JS User Registration'
+body
+  h1 Node.JS User Registration
+  h2 Ouchh, we are quite broken
+  div(id='result')
+    h2 An error occured !
+    h3 Our technical staff were noticed of your problem : #{error.message}
+    h4
+      a(href='/')
+        p Go back to home

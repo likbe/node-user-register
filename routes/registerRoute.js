@@ -4,16 +4,20 @@ var register = require('../apis/registerService.js');
 var errors = require('../apis/errors.js');
 
 exports.index = function(req, res) {
-   res.render('register', {user : null});
+   res.render('register', {user : null, error: req.flash('register-error')});
 }
 
 exports.registerUser = function(req, res) {
   register.registerUser(req.body.email, req.body.firstname, req.body.lastname, function(err) 
   {
-    if (err == errors.USER_ALREADY_EXIST) {
-      res.end('user already exists');
+    if (err == errors.USER_ALREADY_EXISTS) {
+      req.flash('register-error', 'Oops, user already exists');
+      res.redirect('/user/register');
     }
-    else if (err) { res.end('unable to register the user'); }
+    else if (err) { 
+      req.flash('register-error', 'Oops, we cannot register you at this time.');
+      res.redirect('/user/register');
+    }
     else { res.redirect('/'); } 
   });
 }
@@ -37,7 +41,10 @@ exports.activateUser = function(req, res) {
 
 exports.desactivateUser = function(req, res) {
   register.desactivateUser(req.params.activationKey, function(err, user) {
-    if (err) res.end('unable to desactivate user');
+    if (err) { 
+      logger.error('desactivateUser - Failed to desactivate user: ' + user.email);
+      res.render('error',{ error : { message :'We cannot desactivate this user at this time' }});
+    }
     else res.redirect('/users');
   });
 }
@@ -45,7 +52,9 @@ exports.desactivateUser = function(req, res) {
 exports.listUsers = function(req, res) {
   register.findUsersWithActivationKeys(function (err, usersWithUserActivations)
   {
-    if (err) res.end('unable to list users');
+    if (err) {
+      res.render('error',{ error : { message :'Sorry, we cannot list users at this time'}});
+    }
     else res.render('users', {usersWithUserActivations: usersWithUserActivations});
   });
 }
@@ -60,7 +69,7 @@ exports.resendActivationLink = function(req, res) {
     }
     else {
       logger.error('resendActivationLink - user: ' + user.email + ' exist. But resend failed with error: ' + err);
-      res.end('We are unable to resend your activation key. Our support service will contact you as soon as possible.');
+      res.render('error', { error : { message :'We are unable to resend your activation key. Our support service will contact you as soon as possible.' }} );
     }
   });
 }
