@@ -5,9 +5,9 @@ var express = require("express");
 var redisStore = require("connect-redis")(express);
 var path = require("path");
 var mongoose = require("mongoose");
-var socketio = require("socket.io");
 var errors = require("./apis/errors.js");
 var accountService = require("./apis/accountService.js");
+var socketio = require("socket.io");
 
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
@@ -24,6 +24,24 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+passport.use(new LocalStrategy(
+  function(username, password, done) {   
+        accountService.validatePassword(username, password, function(err, user) {
+            if (err) {
+              if (err == errors.INVALID_PASSWORD_USER_DOES_NOT_EXIST) { return done(null, false, {message: 'Unknown user ' + username}); }
+              else if (err == errors.INVALID_PASSWORD_USER_IS_NOT_ACTIVE) { return done(null, false, {message: 'User is inactive'}); }
+              else if (err == errors.INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH) { return done(null, false, {message: 'Invalid password'}); }
+            }
+            else
+            {
+              return done(null, user)
+            }
+        });
+  }
+));
+
+var app = module.exports = express();
+var server = http.createServer(app);
 
 app.configure(function() {
   app.use(express.bodyParser());
@@ -90,6 +108,8 @@ app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
+
+
 
 var io = socketio.listen(server);
 io.set("store", new socketio.RedisStore);
