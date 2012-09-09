@@ -8,17 +8,27 @@ var UserActivation = require('../models/userActivation.js');
 var account = require('./accountService.js');
 var mailService = require('./mailService.js');
 var logger = require("./loggerService.js").logger;
+var errors = require("./errors.js");
 
 exports.registerUser = function(email, firstname, lastname, callback) {
-  var userId = new mongoose.Types.ObjectId;
-  var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
-  user.save(function (err) {
-      var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
-      userActivation.save(function(err2) {
-        mailService.sendActivationMail(email, firstname, lastname, userActivation.activationKey, function(err3, response) {
-          callback(err || err2 || err3, user);
+  account.exists(email, function(err, exists) {
+    if (exists) {
+      logger.info('registerUser - User:' + email + ' already exists');
+      callback(errors.USER_ALREADY_EXISTS, null);
+    }
+    else {
+      logger.info('registerUser - User:' +  email + ' does not already exists');
+      var userId = new mongoose.Types.ObjectId;
+      var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+      user.save(function (err) {
+          var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
+          userActivation.save(function(err2) {
+            mailService.sendActivationMail(email, firstname, lastname, userActivation.activationKey, function(err3, response) {
+              callback(err || err2 || err3, user);
+          });
+        });
       });
-    });
+    }
   });
 }
 
@@ -84,7 +94,7 @@ exports.findActivationKeyByUserId = function(userId, callback) {
 exports.resendActivationLink = function(email, callback) {
   logger.info('resendActivationLink - Try to resend activation link to user:' + email);
   account.findUserByEmail(email, function(err, user) {
-    if (!user) { callback(1, null); }
+    if (!user) { callback(errors.UNABLE_TO_FIND_USER_TO_RESEND_MAIL, null); }
     else {
       module.exports.findActivationKeyByUserId(user._id, function(err, activationKey) {
         mailService.sendActivationMail(email, user.firstname, user.lastname, activationKey, function(err, response) {

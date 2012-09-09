@@ -6,6 +6,7 @@ var redisStore = require("connect-redis")(express);
 var path = require("path");
 var mongoose = require("mongoose");
 var socketio = require("socket.io");
+var errors = require("./apis/errors.js");
 
 var accountService = require("./apis/accountService.js");
 
@@ -24,24 +25,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {   
-        accountService.validatePassword(username, password, function(err, user) {
-            if (err) {
-              if (err == 1) { return done(null, false, {message: 'Unknown user ' + username}); }
-              else if (err == 2) { return done(null, false, {message: 'User is inactive'}); }
-              else if (err == 3) { return done(null, false, {message: 'Invalid password'}); }
-            }
-            else
-            {
-              return done(null, user)
-            }
-        });
-  }
-));
-
-var app = module.exports = express.createServer();
-var server = http.createServer(app);
 
 app.configure(function() {
   app.use(express.bodyParser());
