@@ -11,6 +11,7 @@ Core :
 User Interface :
 ----------------
 - Jade (views / templates)
+- Stylus
 - connect-flash
 
 Communication / Network :
@@ -32,6 +33,7 @@ Test / Quality :
 -----------------
 - Mocha (integration/unit tests)
 - should (assertions framework) 
+- jscoverage (code coverage)
 
 Database :
 ----------
