@@ -4,7 +4,7 @@ var register = require('../apis/registerService.js');
 var errors = require('../apis/errors.js');
 
 exports.index = function(req, res) {
-   res.render('register', {user : null, error: req.flash('register-error')});
+   res.render('register', {user : null, success: req.flash('register-ok'), error: req.flash('register-error')});
 }
 
 exports.registerUser = function(req, res) {
@@ -18,7 +18,10 @@ exports.registerUser = function(req, res) {
       req.flash('register-error', 'Oops, we cannot register you at this time.');
       res.redirect('/user/register');
     }
-    else { res.redirect('/'); } 
+    else { 
+      req.flash('register-ok', 'Great, you will receive an activation mail.');
+      res.redirect('/user/register'); 
+    } 
   });
 }
 
