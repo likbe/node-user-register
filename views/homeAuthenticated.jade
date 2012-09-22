@@ -13,7 +13,7 @@ body(ng-app='GravatarApp')
   div(id='result')
     h2 Greetings #{user.firstname} !
     h3 Picture :  
-    user-profile(class='userphoto', email='mmorel@likbe.com')
+    user-profile(class='userphoto', email='#{user.email}')
     h4
       a(href='#', id='logout-action')
         p sign out
