@@ -69,6 +69,7 @@ app.configure(function() {
 
   // Set views directory and associated view engine (jade)
   app.set('views', path.join(__dirname, "views"));  
+  app.set('view options', { layout: true }); 
   app.set('view engine', 'jade');
 });
 

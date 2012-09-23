@@ -1,9 +1,6 @@
-doctype 5
-html(lang="en")
-head
-  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
-  title 'Node.JS User registration'
-body
+extends layout
+
+block content
   h1 Node.JS User Registration
   - if (user)
     h2 Account activation : only one step left,

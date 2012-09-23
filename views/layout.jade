@@ -1,0 +1,29 @@
+!!!
+html(lang="en")
+head
+  link(rel='stylesheet', href='/static/css/bootstrap.css', type='text/css')
+  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
+  title 'Node.JS User Registration'
+  script(type='text/javascript', src='/socket.io/socket.io.js')
+  script(type='text/javascript', src='/static/js/client.js')
+  script(type='text/javascript', src='/static/js/jquery.js')
+  block head
+body(ng-app='GravatarApp')
+  div(class='navbar navbar-inverse navbar-fixed-top')
+    div(class='navbar-inner')
+      div(class='container')
+        a(class='btn btn-navbar', data-toggle='collapse', data-target='.nav-collapse')
+          span(class='icon-bar')
+          span(class='icon-bar')
+          span(class='icon-bar')
+        a(class='brand', href='/') Kanban Board
+        div(class='nav-collapse collapse')
+          ul(class='nav')
+            li(class='active') 
+              a(href='/') Home
+            li(class='active') 
+              a(href='#tour') Tour
+            li(class='active') 
+              a(href='#blog') Blog
+    div(class='container')
+      block content

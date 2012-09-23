@@ -1,12 +1,6 @@
-doctype 5
-html(lang="en")
-head
-  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
-  title 'Node.JS User Registration'
-  script(type='text/javascript', src='/socket.io/socket.io.js')
-  script(type='text/javascript', src='/static/js/client.js')
-  script(type='text/javascript', src='/static/js/jquery.js')
-body
+extends layout
+
+block content
   h1 Node.JS User Registration
   h2 Sign-In
   form(name='form-signin',action='login',method='post')

@@ -1,10 +1,6 @@
-doctype 5
-html(lang="en")
-head
-  link(rel='stylesheet', href='/static/css/site.css', type='text/css')
-  script(type='text/javascript', src='../static/js/jquery.js')
-  title 'Node.JS User Registration'
-body
+extends layout
+
+block content
   h1 Node.JS User Registration
   h2 Your activation email have been resent to #{user.email}
   h3 If you do not receive it in the next hour please contact our support service
