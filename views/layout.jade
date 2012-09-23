@@ -16,14 +16,29 @@ body(ng-app='GravatarApp')
           span(class='icon-bar')
           span(class='icon-bar')
           span(class='icon-bar')
-        a(class='brand', href='/') Kanban Board
+        a(class='brand', href='/') LikBe
         div(class='nav-collapse collapse')
           ul(class='nav')
             li(class='active') 
-              a(href='/') Home
+              a(href='/') 
+                div
+                  p Home
             li(class='active') 
-              a(href='#tour') Tour
+              a(href='#tour') 
+                div
+                  p Tour
             li(class='active') 
-              a(href='#blog') Blog
+              a(href='#blog') 
+                div 
+                  p Blog
+          ul(class='nav pull-right')
+            li(class='active')
+                a(href='/user/register')
+                  div(class='vip') 
+                    p Sign Up
+            li(class='active') 
+              a(href='/user/login')   
+                div 
+                  p Already member ?
     div(class='container')
       block content

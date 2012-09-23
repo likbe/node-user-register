@@ -30,3 +30,10 @@ p {
 div {
   font: 18px/27px 'QlassikMediumRegular', Arial, sans-serif;
 }
+.vip {
+  background-color: #ffa500;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  padding: 0px 20px 0px 20px;
+}
