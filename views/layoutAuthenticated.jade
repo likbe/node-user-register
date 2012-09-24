@@ -8,7 +8,7 @@ head
   script(type='text/javascript', src='/static/js/client.js')
   script(type='text/javascript', src='/static/js/jquery.js')
   block head
-body(ng-app='LikBeApp')
+body(ng-app='GravatarApp')
   div(class='navbar navbar-inverse navbar-fixed-top')
     div(class='navbar-inner')
       div(class='container')
@@ -23,22 +23,14 @@ body(ng-app='LikBeApp')
               a(href='/') 
                 div
                   p Home
-            li(class='active') 
-              a(href='#tour') 
-                div
-                  p Tour
-            li(class='active') 
-              a(href='#blog') 
-                div 
-                  p Blog
           ul(class='nav pull-right')
-            li(class='active')
-                a(href='/user/register')
-                  div(class='vip') 
-                    p Sign Up
-            li(class='active') 
-              a(href='/user/login')   
-                div 
-                  p Already member ?
+            li(class='header-top')
+                div(class='header-top')
+                  p(class='header-top') #{user.firstname} #{user.lastname}
+                  a(href='#', id='logout-action')
+                    div(class='header-sub') sign out
+            li(class='active')   
+              div(class='photo-id')
+                user-profile(class='userphoto', email='#{user.email}')
     div(class='container')
       block content

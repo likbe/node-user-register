@@ -37,3 +37,20 @@ div {
   border-radius: 8px;
   padding: 0px 20px 0px 20px;
 }
+.photo-id {
+  border: 1px solid #a9a9a9;
+  width: 50px;
+  height: 50px;
+  margin-top: 3px;
+  margin-left: 8px;
+}
+.header-top {
+  height: 18px;
+}
+.header-sub {
+  height: 18px;
+  vertical-align: top;
+}
+.error-message {
+  color: #f00;
+}

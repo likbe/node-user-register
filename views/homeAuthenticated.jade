@@ -1,16 +1,10 @@
-extends layout
+extends layoutAuthenticated
 
 block head
   script(type='text/javascript', src='/static/js/angular.js')
   script(type='text/javascript', src='/static/js/logout.js')
   script(type='text/javascript', src='/static/js/userprofile.js')
 block content
-  h1 Node.JS User Registration
-   h2 Successfully signed-in
-   div(id='result')
-    h3 Greetings #{user.firstname} !
-      h4 Picture :  
-        user-profile(class='userphoto', email='#{user.email}')
-        h4
-          a(href='#', id='logout-action')
-            p sign out
+  h2 Successfully signed-in
+  div(id='result')
+  h3 Greetings #{user.firstname} !

@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  h1 Node.JS User Registration
   h2 Sign-In
   form(name='form-signin',action='login',method='post')
     div
@@ -10,8 +9,9 @@ block content
     div
       label Password
       input(id='ln',name='password',type='password')
-    - if (message)
-      p #{message}
+    - if (message != '')
+      div(class='alert alert-error') 
+        span #{message}
     div
       button(type='submit') Sign In
 
