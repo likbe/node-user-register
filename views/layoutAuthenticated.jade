@@ -27,8 +27,10 @@ body(ng-app='GravatarApp')
             li(class='header-top')
                 div(class='header-top')
                   p(class='header-top') #{user.firstname} #{user.lastname}
-                  a(href='#', id='logout-action')
-                    div(class='header-sub') sign out
+                    form(id='form-signout',action='/user/logout',method='post')
+                      div(class='header-sub')
+                       a(href='#', id='logout-action')
+                         span Sign Out
             li(class='active')   
               div(class='photo-id')
                 user-profile(class='userphoto', email='#{user.email}')
