@@ -81,7 +81,7 @@ ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  return res.redirect("/user/login");
+  return res.redirect('/user/login');
 };
 
 app.get('/', home.index);
@@ -102,9 +102,12 @@ app.post('/user/login',
     accountRouter.login(res, req.user);
   });
 
+app.get('/user/home', ensureAuthenticated, accountRouter.home);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
+
+
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
