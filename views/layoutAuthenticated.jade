@@ -3,12 +3,13 @@ html(lang="en")
 head
   link(rel='stylesheet', href='/static/css/bootstrap.css', type='text/css')
   link(rel='stylesheet', href='/static/css/site.css', type='text/css')
-  title 'LikBe'
-  script(type='text/javascript', src='/socket.io/socket.io.js')
-  script(type='text/javascript', src='/static/js/client.js')
+  title LikBe
   script(type='text/javascript', src='/static/js/jquery.js')
+  script(type='text/javascript', src='/static/js/angular.js')
+  script(type='text/javascript', src='/static/js/userprofile.js')
+  script(type='text/javascript', src='/static/js/logout.js')
   block head
-body(ng-app='GravatarApp')
+body(ng-app='LikbeApp')
   div(class='navbar navbar-inverse navbar-fixed-top')
     div(class='navbar-inner')
       div(class='container')

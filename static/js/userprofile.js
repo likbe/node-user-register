@@ -20,4 +20,4 @@ function getGravatar(email, size)
     return 'http://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + size + '&d=' + defaultGravatarUrl;
 }
 
-angular.module('GravatarApp', ['userProfileModule'])
+angular.module('LikbeApp', ['userProfileModule'])

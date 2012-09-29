@@ -1,29 +1,37 @@
 extends layout
-
+block head
+  script(type='text/javascript', src='/static/js/angular.js')
+  script(type='text/javascript', src='/static/js/registrationController.js')
 block content
-  -if (user && user.status == 'NotYetRegistered')
-    h2 You are not yet not-yet-registered
-    h3 You can register now using the form below:
-  -else if (user && user.status == 'NoAccountForGivenEmail')
-    h2 User registration 
-    h3 You do not have account for the given email address, please register now using the form below:
-  - else
-    - if (success)
-      p(class='success-message') #{success} 
-     - if (error)
-      p(class='error-message') #{error} 
-    h2 User Registration
-  form(name='form-register',action='register',method='post')
-    div
-      label Firstname
-      input(id='fn',name='firstname',type='text')
-    div
-      label Lastname
-      input(id='ln',name='lastname',type='text')
-    div
-      label Email
-      input(id='em',name='email',type='text')
-    div
-      button(type='submit') Register
+  div(class='form-unit')
+    -if (user && user.status == 'NotYetRegistered')
+      h2 You are not yet not-yet-registered
+      h3 You can register now using the form below:
+    -else if (user && user.status == 'NoAccountForGivenEmail')
+      h2 User registration 
+      h3 You do not have account for the given email address, please register now using the form below:
+    - else
+      - if (success)
+        p(class='success-message') #{success} 
+       - if (error)
+        p(class='error-message') #{error} 
+      h2 User Registration
+    div(ng-controller='RegistrationCtrl')
+      form(name='formRegister',action='register',method='post', novalidate)
+        div
+          label Firstname
+          input(id='fn',name='firstname',type='text', ng-model='user.firstname', ng-required='true')
+          span(ng-show='formRegister.firstname.$error.required', class='error-message')  *
+        div
+          label Lastname
+          input(id='ln',name='lastname',type='text', ng-model='user.lastname', ng-required='true')
+          span(ng-show='formRegister.lastname.$error.required', class='error-message')  *
+        div
+          label Email
+          input(id='em',name='email',type='email', ng-model='user.email', ng-required='true')
+          span(ng-show='formRegister.email.$error.required', class='error-message')  *
+          span(ng-show='formRegister.email.$error.email', class='error-message')  Invalid email format
+        div
+          button(type='submit',ng-disabled='formRegister.$invalid') Register
 
  
