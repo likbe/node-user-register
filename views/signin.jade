@@ -5,15 +5,18 @@ block head
 block content
   div(class='form-unit')
     h2 Sign-In
-    form(name='form-signin',action='login',method='post', ng-controller='SignInCtrl')
-      div
-        label Login
-        input(id='fn',name='username',type='text')
-      div
-        label Password
-        input(id='ln',name='password',type='password')
-      - if (message != '')
-        div(class='alert alert-error') 
-          span #{message}
-      div
-        button(type='submit') Sign In
+    div(ng-controller='SignInCtrl')
+      form(name='formSignIn',action='login',method='post', novalidate)
+        div
+          label Login
+          input(id='fn',name='username',type='text', ng-model='credential.login', ng-required='true')
+          span(ng-show='formSignIn.username.$error.required', class='error-message')  *
+        div
+          label Password
+          input(id='ln',name='password',type='password', ng-model='credential.password', ng-required='true')
+          span(ng-show='formSignIn.password.$error.required', class='error-message')  *
+        - if (message != '')
+          div(class='alert alert-error') 
+            span #{message}
+        div
+          button(type='submit',ng-disabled='formSignIn.$invalid') Sign In

@@ -11,10 +11,6 @@ block content
       h2 User registration 
       h3 You do not have account for the given email address, please register now using the form below:
     - else
-      - if (success)
-        p(class='success-message') #{success} 
-       - if (error)
-        p(class='error-message') #{error} 
       h2 User Registration
     div(ng-controller='RegistrationCtrl')
       form(name='formRegister',action='register',method='post', novalidate)
@@ -31,6 +27,12 @@ block content
           input(id='em',name='email',type='email', ng-model='user.email', ng-required='true')
           span(ng-show='formRegister.email.$error.required', class='error-message')  *
           span(ng-show='formRegister.email.$error.email', class='error-message')  Invalid email format
+        - if (success)
+          div(class='alert alert-success') 
+            span #{success} 
+        - if (error != '')
+          div(class='alert alert-error') 
+            span #{error} 
         div
           button(type='submit',ng-disabled='formRegister.$invalid') Register
 
