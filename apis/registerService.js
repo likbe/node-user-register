@@ -2,6 +2,7 @@ var bcrypt = require("bcrypt");
 var uuid = require("uuid-js");
 var mongoose = require("mongoose");
 var async = require("async");
+var S = require("string");
 
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
@@ -10,6 +11,7 @@ var mailService = require('./mailService.js');
 var logger = require("./loggerService.js").logger;
 var errors = require("./errors.js");
 
+
 exports.registerUser = function(email, firstname, lastname, callback) {
   account.exists(email, function(err, exists) {
     if (exists) {
@@ -17,13 +19,14 @@ exports.registerUser = function(email, firstname, lastname, callback) {
       callback(errors.USER_ALREADY_EXISTS, null);
     }
     else {
-      logger.info('registerUser - User:' +  email + ' does not already exists');
+      logger.info('registerUser - User:' +  email.toLowerCase() + ' does not already exists');
       var userId = new mongoose.Types.ObjectId;
-      var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+      var user = new User({ _id:userId, email:email.toLowerCase(), firstname:S(firstname).capitalize().s, lastname:lastname.toUpperCase(), active:false });
       user.save(function (err) {
           var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
           userActivation.save(function(err2) {
-            mailService.sendActivationMail(email, firstname, lastname, userActivation.activationKey, function(err3, response) {
+            mailService.sendActivationMail(user.email, user.firstname, user.lastname, userActivation.activationKey, function(err3, response) {
+              console.log(user.email + ' ' + user.firstname + ' ' + user.lastname)
               callback(err || err2 || err3, user);
           });
         });

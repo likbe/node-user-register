@@ -47,7 +47,7 @@ exports.validatePassword = function(login, password, callback) {
 }
 
 exports.findUserByEmail = function(email, callback) {
-  User.findOne({email: email}, function(err, user) {
+  User.findOne({email: new RegExp('^'+email+'$', "i")}, function(err, user) {
     if (err || !user) { 
       logger.info('findUserByEmail - Cannot found user for Email: ' + email); 
       callback(errors.COULD_NOT_FIND_USER_BY_EMAIL, null); }

@@ -27,7 +27,7 @@ block content
           input(id='em',name='email',type='email', ng-model='user.email', ng-required='true')
           span(ng-show='formRegister.email.$error.required', class='error-message')  *
           span(ng-show='formRegister.email.$error.email', class='error-message')  Invalid email format
-        - if (success)
+        - if (success != '')
           div(class='alert alert-success') 
             span #{success} 
         - if (error != '')
