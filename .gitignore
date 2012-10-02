@@ -13,6 +13,8 @@ results
 
 .DS_Store
 config.js
+config-local.js
+config-remote.js
 
 node_modules
 npm-debug.log

@@ -11,7 +11,7 @@ var accountService = require("./apis/accountService.js");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 
-mongoose.connect('mongodb://'+config.mongodb.user+'@'+config.mongodb.host+':'+config.mongodb.port +'/'+config.mongodb.database);
+mongoose.connect('mongodb://'+config.mongodb.user + ':'+ config.mongodb.password+'@'+config.mongodb.host+':'+config.mongodb.port +'/'+config.mongodb.database);
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
@@ -51,6 +51,7 @@ app.configure(function() {
   app.use(express.session({ store: new redisStore({
     host:config.redis.host, 
     port:config.redis.port, 
+    pass:config.redis.password,
     prefix:config.redis.prefix}), 
     secret:config.redis.secret })
   );
