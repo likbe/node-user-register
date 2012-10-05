@@ -11,15 +11,15 @@ var UserActivation = require('../models/userActivation.js');
 function initializeUser(cb) {
 	var userId = new mongoose.Types.ObjectId;
 	mongoose.connect('mongodb://localhost/users');
-		User.remove(function() {
-			UserActivation.remove(function() {
-				var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
-				var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
-  				user.save(function (err) {
-    				cb(user);
-				});
+	User.remove(function() {
+		UserActivation.remove(function() {
+			var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
+			var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+				user.save(function (err) {
+				cb(user);
 			});
-		});		
+		});
+	});		
 }
 
 function openConnection(cb) {

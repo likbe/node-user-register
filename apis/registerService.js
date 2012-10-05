@@ -26,7 +26,6 @@ exports.registerUser = function(email, firstname, lastname, callback) {
           var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
           userActivation.save(function(err2) {
             mailService.sendActivationMail(user.email, user.firstname, user.lastname, userActivation.activationKey, function(err3, response) {
-              console.log(user.email + ' ' + user.firstname + ' ' + user.lastname)
               callback(err || err2 || err3, user);
           });
         });

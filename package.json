@@ -34,5 +34,9 @@
     "jade": "0.27.x",
     "uuid-js": "0.7.x",
     "string": "1.0.x"
-  }
+  },
+  "bundleDependencies": [
+    "mocha",
+    "should"
+  ],  
 }

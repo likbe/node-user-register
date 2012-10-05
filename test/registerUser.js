@@ -26,8 +26,8 @@ describe('Register a user', function() {
 	describe('with complete informations', function() {
 		before(function(done) {
 			initializeUser(function () {
-				register.registerUser('john.doe@fake.com', 'John', 'Doe', function(err, res) {
-					currentUser = res;
+				register.registerUser('johnny.doe@fake.com', 'John', 'Doe', function(err, user) {
+					currentUser = user;
 					closeConnection();
 					done();
 				});
@@ -37,7 +37,7 @@ describe('Register a user', function() {
  			should.exist(currentUser);
  			currentUser.should.have.property('firstname', 'John');
  			currentUser.should.have.property('lastname'), 'Doe';
- 			currentUser.should.have.property('email', 'john.doe@fake.com');
+ 			currentUser.should.have.property('email', 'johnny.doe@fake.com');
  			currentUser.should.have.property('active', false);
 		});
 	});
