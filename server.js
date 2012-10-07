@@ -7,6 +7,7 @@ var path = require("path");
 var mongoose = require("mongoose");
 var errors = require("./apis/errors.js");
 var accountService = require("./apis/accountService.js");
+var authorizationService = require("./apis/authorizationService.js")
 
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
@@ -90,7 +91,7 @@ app.get('/', home.index);
 app.get('/user/register', registerRouter.index);
 app.get('/user/activate/:activationKey', registerRouter.activate);
 app.get('/user/desactivateUser/:activationKey', registerRouter.desactivateUser);
-app.get('/users', registerRouter.listUsers);
+app.get('/users', authorizationService.ensureSecurity, registerRouter.listUsers);
 app.post('/user/register', registerRouter.registerUser);
 app.post('/user/activate', registerRouter.activateUser);
 
