@@ -6,25 +6,24 @@ var register = require('../apis/registerService.js');
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 
+var conn;
+
 function initializeUser(cb) {
-	mongoose.connect('mongodb://localhost/users');
+	conn = mongoose.connect('mongodb://localhost/likbe-test');
 	var userId = new mongoose.Types.ObjectId;
-	User.remove(function() {
-		UserActivation.remove(function() {
-			var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
-			var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
-				user.save(function (err) {
-				var userActivation = new UserActivation({ activationKey: 'fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', user_id: userId });
-				userActivation.save(function(err) {
-					if (err) cb(err);
-					else cb(null);
-				});
-			});
+	var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
+	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+		user.save(function (err) {
+		var userActivation = new UserActivation({ activationKey: 'fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', user_id: userId });
+		userActivation.save(function(err) {
+			if (err) cb(err);
+			else cb(null);
 		});
 	});		
 }
 
 function closeConnection() {
+	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 

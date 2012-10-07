@@ -8,17 +8,15 @@ var account = require('../apis/accountService.js');
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 
+var conn;
+
 function initializeUser(cb) {
 	var userId = new mongoose.Types.ObjectId;
-	mongoose.connect('mongodb://localhost/users');
-	User.remove(function() {
-		UserActivation.remove(function() {
-			var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
-			var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
-				user.save(function (err) {
-				cb(user);
-			});
-		});
+	conn = mongoose.connect('mongodb://localhost/likbe-test');
+	var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
+	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+	user.save(function (err) {
+		cb(user);
 	});		
 }
 
@@ -28,6 +26,7 @@ function openConnection(cb) {
 }
 
 function closeConnection() {
+	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "node-user-registration",
-  "version": "0.0.1-26",
+  "version": "0.0.1-27",
   "description": "A user registration system",
   "keywords": [
     "registration",
@@ -38,5 +38,5 @@
   "bundleDependencies": [
     "mocha",
     "should"
-  ],  
+  ]
 }

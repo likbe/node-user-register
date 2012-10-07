@@ -9,8 +9,10 @@ var account = require('../apis/accountService.js');
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 
+var conn;
+
 function initializeUsers(cb) {
-	mongoose.connect('mongodb://localhost/users');
+	conn = mongoose.connect('mongodb://localhost/likbe-test');
 	var users = [
 	{email:'john.doe@fake.com', firstname:'John', lastname:'DOE', roles:[{ name:'admin'}]} ,
 	{email:'jane.doe@fake.com', firstname:'Jane', lastname:'DOE'}
@@ -43,6 +45,7 @@ function openConnection(cb) {
 }
 
 function closeConnection() {
+	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 
