@@ -45,4 +45,5 @@ Database :
 Utilities :
 -----------
 - UUID js
+- String js
 

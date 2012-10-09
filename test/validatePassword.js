@@ -18,8 +18,8 @@ function initializeUser(cb) {
 	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
 		user.save(function (err) {
 		var userActivation = new UserActivation({ activationKey: 'fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', user_id: userId });
-		userActivation.save(function() {
-			register.activateUser('fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', 'password', function(err, res) {
+		userActivation.save(function(err) {
+			register.activateUser('fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', 'password', function(err, res) {										
 				if (err) cb(err);
 				else cb(null);
 			});

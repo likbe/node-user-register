@@ -1,9 +1,10 @@
 var accountService = require('../apis/accountService.js');
+var workspaceService = require('../apis/workspaceService.js');
 
 exports.login = function(res, user) {
 	accountService.login(user, function(err, result) {
 		if (err) { res.render('error', { error : { message: 'Unable to retrieve user with id : ' + user }}); }
-		else { res.redirect('/user/home'); }
+		else { res.redirect('/user/dashboard'); }
 	});
 }
 
@@ -16,6 +17,8 @@ exports.logout = function(req, res) {
 	}
 }
 
-exports.home = function(req, res) {
-	res.render('homeAuthenticated', {user : req.user, layout : 'layoutAuthenticated'});
+exports.dashboard = function(req, res) {
+	var workspaces = workspaceService.findWorkspacesByOwner(req.user._id, function(workspaces) {
+		res.render('dashboard', {user : req.user, layout : 'layoutAuthenticated', workspaces: workspaces});
+	});
 }

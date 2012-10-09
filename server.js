@@ -104,7 +104,7 @@ app.post('/user/login',
     accountRouter.login(res, req.user);
   });
 
-app.get('/user/home', ensureAuthenticated, accountRouter.home);
+app.get('/user/dashboard', ensureAuthenticated, accountRouter.dashboard);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)

@@ -12,17 +12,32 @@ isAdmin = function(item, callback) {
     else { callback(false); }
 }
 
+isWorkspaceCreator = function(item, callback) {
+    console.log(item);
+    if (item.name == 'workspaceCreator') { callback(true); }
+    else { callback(false); }
+}
+
 exports.ensureSecurity = function(req, res, next) {
-	var featureKey = extractFeatureKey(req);
+	var featuresUrl = extractFeatureKey(req);
     var isAuthorized = false;
     if (req.isAuthenticated()) {
-    	if (featureKey == "/users") {
+    	if (featuresUrl == "/users") {
             async.detect(req.user.roles, isAdmin, function(result) {
                 if (result != null) {
                     isAuthorized = true;
                 }
             });
     	}
+
+        else if (featuresUrl == "/user/dashboard") {
+            async.detect(req.user.roles, isWorkspaceCreator, function(result) {
+                if (result != null) {
+                    isAuthorized = true;
+                }
+            });
+        }
+
         else {
             isAuthorized = true;
         }
