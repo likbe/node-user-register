@@ -14,6 +14,7 @@ Object.defineProperty(errors,'COULD_NOT_FIND_USER_BY_ID',{value:999993});
 
 //WORKSPACE
 Object.defineProperty(errors,'COULD_NOT_SEARCH_WORKSPACE_BY_OWNER',{value:999992});
+Object.defineProperty(errors,'WORKSPACE_ALREADY_EXISTS',{value:999991});
 
 module.exports = errors; 
 

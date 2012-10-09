@@ -30,11 +30,12 @@ exports.ensureSecurity = function(req, res, next) {
             });
     	}
 
-        else if (featuresUrl == "/user/dashboard") {
+        else if (featuresUrl == "/workspace/create") {
             async.detect(req.user.roles, isWorkspaceCreator, function(result) {
                 if (result != null) {
                     isAuthorized = true;
                 }
+                else console.log('not authorized to create workspace');
             });
         }
 

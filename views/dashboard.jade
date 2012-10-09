@@ -1,8 +1,27 @@
 extends layoutAuthenticated
-
+block head
+  script(type='text/javascript', src='/static/js/angular.js')
+  script(type='text/javascript', src='/static/js/workspaceController.js')
 block content
-  h2 Dashboard
-   - if (workspaces)
-     p No workspaces
-   - else
-     p No workspaces
+  div(class='form-unit')
+    - if (workspaces.length > 0)
+      h2 You have access to the following workspaces
+      br
+      each workspace in workspaces
+        div(class='gridRow')
+          span #{workspace.name} 
+    - else
+      h2 Welcome, 
+      p You can now create your first workspace,
+      div(ng-controller='WorkspaceCtrl')
+        form(name='formWorkspaceCreate',action='/workspace/create',method='post', novalidate)
+          div
+            label Name
+            input(id='fn',name='name',type='text', ng-model='workspace.name', ng-required='true')
+            span(ng-show='formWorkspaceCreate.name.$error.required', class='error-message')  *
+          div
+            label Description
+            textarea(id='ds',name='description',type='text', rows='5', ng-model='workspace.description', ng-required='true')
+          div
+            button(type='submit',ng-disabled='formWorkspaceCreate.$invalid') Create
+

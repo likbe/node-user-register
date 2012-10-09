@@ -1,0 +1,3 @@
+function WorkspaceCtrl($scope) {
+
+}

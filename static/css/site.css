@@ -30,6 +30,17 @@ p {
 div {
   font: 18px/27px 'QlassikMediumRegular', Arial, sans-serif;
 }
+textarea {
+  width: 60%;
+}
+textarea.noResize {
+  resize: none;
+}
+.gridRow {
+  background-color: #fff;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #cecefe;
+}
 .vip {
   background-color: #ffa500;
   -moz-border-radius: 8px;

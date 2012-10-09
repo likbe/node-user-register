@@ -78,6 +78,7 @@ app.configure(function() {
 var home = require('./routes/homeRoute.js');
 var registerRouter = require('./routes/registerRoute.js');
 var accountRouter = require('./routes/accountRoute.js');
+var workspaceRouter = require('./routes/workspaceRoute.js');
 
 ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -108,6 +109,8 @@ app.get('/user/dashboard', ensureAuthenticated, accountRouter.dashboard);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
+
+app.post('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.create);
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
