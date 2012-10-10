@@ -8,8 +8,11 @@ block content
       h2 You have access to the following workspaces
       br
       each workspace in workspaces
-        div(class='gridRow')
-          span #{workspace.name} 
+        a(href='/workspace/#{workspace._id}')
+          div(class='gridRow')
+            span #{workspace.name} 
+      p
+        a(href='/workspace/create') Create a new workspace
     - else
       h2 Welcome, 
       p You can now create your first workspace,

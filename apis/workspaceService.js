@@ -23,6 +23,12 @@ exports.findWorkspacesByOwner = function(userId, callback) {
   });
 }
 
+exports.findWorkspaceByIdAndUser = function(workspaceId, userId, callback) {
+  Workspace.findOne({owner:userId, _id:workspaceId}, function(err, workspace) {
+    callback(err, workspace);
+  });
+}
+
 exports.create = function(userId, name, description, callback) {
   this.exists(userId, name, function(err, exists) {
     if (exists) {
@@ -48,3 +54,4 @@ exports.exists = function(userId, name, callback) {
     else { callback(err, true); }
   });
 }
+

@@ -1,0 +1,13 @@
+extends layoutAuthenticated
+block head
+  script(type='text/javascript', src='/static/js/angular.js')
+  script(type='text/javascript', src='/static/js/workspaceController.js')
+block content
+  div(class='form-unit')
+    - if (workspace)
+      h2 #{workspace.name}
+      p #{workspace.description}
+    - else
+      h2 This workspace does not exists
+      p You do not have right to access to this workspace or it was deleted by its owner
+

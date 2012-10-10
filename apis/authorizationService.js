@@ -2,12 +2,10 @@ var accountService = require("./accountService.js");
 var async = require("async");
 
 extractFeatureKey = function(req) {
-	console.log(req.url);
 	return req.url;
 }
 
 isAdmin = function(item, callback) {
-    console.log(item);
     if (item.name == 'admin') { callback(true); }
     else { callback(false); }
 }
