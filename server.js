@@ -110,7 +110,9 @@ app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 
+app.get('/workspace/create', ensureAuthenticated, workspaceRouter.createNew);
 app.post('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.create);
+app.get('/workspace/:workspaceId', authorizationService.ensureSecurity, workspaceRouter.view);
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);

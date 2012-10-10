@@ -19,7 +19,6 @@ exports.logout = function(req, res) {
 
 exports.dashboard = function(req, res) {
 	workspaceService.findWorkspacesByOwner(req.user._id, function(err, workspaces) {
-		console.log(workspaces);
 		res.render('dashboard', {user : req.user, layout : 'layoutAuthenticated', workspaces: workspaces});
 	});
 }

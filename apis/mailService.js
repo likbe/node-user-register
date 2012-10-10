@@ -3,7 +3,7 @@ var mandrill = require('node-mandrill')(config.mandrill.apiKey);
 var logger = require("./loggerService.js").logger;
 
 exports.sendActivationMail = function(email, firstname, lastname, activationKey, callback) {
-  var activationLink = "http://localhost:8888/user/activate/" + activationKey;
+  var activationLink = "http://"+config.mail.host+"/user/activate/" + activationKey;
   mandrill('/messages/send', {
     message: {
         to: [{email: email, name: firstname + ' ' + lastname}],
