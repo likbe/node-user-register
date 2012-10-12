@@ -2,6 +2,7 @@ extends layoutAuthenticated
 block head
   script(type='text/javascript', src='/static/js/angular.js')
   script(type='text/javascript', src='/static/js/workspaceController.js')
+  script(type='text/javascript', src='/static/js/moment.js')
 block content
   div(class='form-unit')
     - if (workspaces.length > 0)
@@ -11,6 +12,7 @@ block content
         a(href='/workspace/#{workspace._id}')
           div(class='gridRow')
             span #{workspace.name} 
+            span #{workspace.creationDate}
       p
         a(href='/workspace/create') Create a new workspace
     - else

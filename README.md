@@ -17,7 +17,6 @@ User Interface :
 Communication / Network :
 -------------------------
 - Node Mandrill (mail sender)
-- Socket.IO
 
 Log :
 -----
@@ -46,4 +45,5 @@ Utilities :
 -----------
 - UUID js
 - String js
+- Moment js (Date and time formatting)
 
