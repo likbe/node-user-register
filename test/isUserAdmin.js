@@ -14,8 +14,8 @@ var conn;
 function initializeUsers(cb) {
 	conn = mongoose.connect('mongodb://localhost/likbe-test');
 	var users = [
-	{email:'john.doe@fake.com', firstname:'John', lastname:'DOE', roles:[{ name:'admin'}]} ,
-	{email:'jane.doe@fake.com', firstname:'Jane', lastname:'DOE'}
+	{email:'john.doe8@fake.com', firstname:'John', lastname:'DOE', roles:[{ name:'admin'}]} ,
+	{email:'jane.doe1@fake.com', firstname:'Jane', lastname:'DOE'}
 	];
 	async.forEach(users, function (user, cb){ 
 		initializeUser(user, function() {
@@ -40,12 +40,11 @@ function initializeUser(user, cb) {
 }
 
 function openConnection(cb) {
-	mongoose.connect('mongodb://localhost/users');
+	mongoose.connect('mongodb://localhost/likbe-test');
 	cb();
 }
 
 function closeConnection() {
-	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 
@@ -68,7 +67,7 @@ describe('Is user admin', function() {
 	});	
 	describe('using an admin user account', function() {
 		it('should return the user', function() {
-			findUserByEmail(u, 'john.doe@fake.com', function(userFound) {
+			findUserByEmail(u, 'john.doe8@fake.com', function(userFound) {
 				account.isUserAdmin(userFound.email, function(err, user) {
 					should.exist(user);
 				});
@@ -76,7 +75,7 @@ describe('Is user admin', function() {
 		});
 		describe('using an non-admin user account', function() {
 			it('should return null', function() {
-				findUserByEmail(u, 'jane.doe@fake.com', function(userFound) {
+				findUserByEmail(u, 'jane.doe1@fake.com', function(userFound) {
 					account.isUserAdmin(userFound.email, function(err, user) {
 						should.exist(user);
 					});

@@ -12,7 +12,7 @@ var conn;
 function initializeUsers(cb) {
 	conn = mongoose.connect('mongodb://localhost/likbe-test', function() {
 		register.registerUser('smith@fake.com', 'Mike', 'Smith', function(err, result) {
-			register.registerUser('john@fake.com', 'John', 'Doe', function(err, result) {
+			register.registerUser('john.doe6@fake.com', 'John', 'Doe', function(err, result) {
 				cb(result);
 			});
 		});
@@ -31,7 +31,6 @@ function cleanUsers(cb) {
 }
 
 function closeConnection() {
-	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 

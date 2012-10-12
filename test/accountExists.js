@@ -13,7 +13,7 @@ var conn;
 function initializeUser(cb) {
 	var userId = new mongoose.Types.ObjectId;
 	conn = mongoose.connect('mongodb://localhost/likbe-test');
-	var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
+	var email = "john.doe1@fake.com", firstname="John", lastname = "Doe";
 	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
 	user.save(function (err) {
 		cb(user);
@@ -21,12 +21,11 @@ function initializeUser(cb) {
 }
 
 function openConnection(cb) {
-	mongoose.connect('mongodb://localhost/users');
+	mongoose.connect('mongodb://localhost/likbe-test');
 	cb();
 }
 
 function closeConnection() {
-	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 
