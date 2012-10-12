@@ -28,7 +28,6 @@ exports.registerUser = function(email, firstname, lastname, callback) {
             mailService.sendActivationMail(user.email, user.firstname, user.lastname, userActivation.activationKey, function(err3, response) {
               callback(err || err2 || err3, user);
           });
-          callback(err, user);
         });
       });
     }

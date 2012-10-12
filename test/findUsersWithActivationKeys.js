@@ -11,12 +11,16 @@ var conn;
 
 function initializeUsers(cb) {
 	conn = mongoose.connect('mongodb://localhost/likbe-test', function() {
-		register.registerUser('smith@fake.com', 'Mike', 'Smith', function(err, result) {
-			register.registerUser('john.doe6@fake.com', 'John', 'Doe', function(err, result) {
-				cb(result);
+		User.remove(function() {
+			UserActivation.remove(function() {
+				register.registerUser('smith@fake.com', 'Mike', 'Smith', function(err, result) {
+					register.registerUser('john.doe6@fake.com', 'John', 'Doe', function(err, result) {
+						cb(result);
+					});
+				});
 			});
-		});
 	});
+});
 }
 
 function cleanUsers(cb) {
@@ -35,24 +39,24 @@ function closeConnection() {
 }
 
 describe('Find all users and retrieve associated user activation keys', function() {
-		beforeEach(function(done) {
+	beforeEach(function(done) {
 			//cleanUsers(function(cb) {
 				done();
 			//});
-		});
-		var result;
-		before(function(done) {
-			initializeUsers(function() {
-				register.findUsersWithActivationKeys(function(err, results) {
-					result = results;
-					closeConnection();
-					done();
-				});
+});
+	var result;
+	before(function(done) {
+		initializeUsers(function() {
+			register.findUsersWithActivationKeys(function(err, results) {
+				result = results;
+				closeConnection();
+				done();
 			});
 		});
-		it('should return 2 users and 2 user activations', function() {	   
- 			should.exist(result);
- 			result.should.have.property('length');
+	});
+	it('should return 2 users and 2 user activations', function() {	   
+		should.exist(result);
+		result.should.have.property('length');
  			//assert.equal(2, result.length, 'there are too many or too few users with activation key');
  			for (var i = 0; i < result.length; i++) {
  				result[i].should.have.property('user'); 	
@@ -60,5 +64,5 @@ describe('Find all users and retrieve associated user activation keys', function
  				result[i].should.have.property('userActivation');
  				result[i].userActivation.should.have.property('activationKey');
  			}
-		});
+ 		});
 });

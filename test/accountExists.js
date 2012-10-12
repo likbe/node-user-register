@@ -15,9 +15,11 @@ function initializeUser(cb) {
 	conn = mongoose.connect('mongodb://localhost/likbe-test');
 	var email = "john.doe1@fake.com", firstname="John", lastname = "Doe";
 	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+	User.remove(function() {
 	user.save(function (err) {
 		cb(user);
 	});		
+});
 }
 
 function openConnection(cb) {
