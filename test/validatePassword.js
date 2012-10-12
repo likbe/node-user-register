@@ -16,6 +16,8 @@ function initializeUser(cb) {
 	conn = mongoose.connect('mongodb://localhost/likbe-test');
 	var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
 	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
+		User.remove(function() {
+			UserActivation.remove(function() {
 		user.save(function (err) {
 		var userActivation = new UserActivation({ activationKey: 'fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', user_id: userId });
 		userActivation.save(function(err) {
@@ -24,11 +26,12 @@ function initializeUser(cb) {
 				else cb(null);
 			});
 		});
+		});
+		});
 	});		
 }
 
 function closeConnection() {
-	conn.connection.db.dropDatabase();
 	mongoose.disconnect();
 }
 

@@ -13,28 +13,21 @@ var errors = require("./errors.js");
 
 
 exports.registerUser = function(email, firstname, lastname, callback) {
-  console.log('register wouhou');
   account.exists(email, function(err, exists) {
-    console.log('does it exists ?');
     if (exists) {
-      console.log('user already exists');
       logger.info('registerUser - User:' + email + ' already exists');
       callback(errors.USER_ALREADY_EXISTS, null);
     }
     else {
-      console.log(email + ' does not already exists');
       logger.info('registerUser - User:' +  email.toLowerCase() + ' does not already exists');
       var userId = new mongoose.Types.ObjectId;
       var user = new User({ _id:userId, email:email.toLowerCase(), firstname:S(firstname).capitalize().s, lastname:lastname.toUpperCase(), active:false });
-      console.log('user is : ' + user);
       user.save(function (err) {
-        console.log('save the user...');
           var userActivation = new UserActivation({ activationKey: uuid.create(4), user_id: userId });
           userActivation.save(function(err2) {
-          //   mailService.sendActivationMail(user.email, user.firstname, user.lastname, userActivation.activationKey, function(err3, response) {
-          //     callback(err || err2 || err3, user);
-          // });
-          console.log('user in register : ' + user);
+            mailService.sendActivationMail(user.email, user.firstname, user.lastname, userActivation.activationKey, function(err3, response) {
+              callback(err || err2 || err3, user);
+          });
           callback(err, user);
         });
       });
