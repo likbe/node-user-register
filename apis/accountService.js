@@ -66,13 +66,6 @@ exports.findUserById = function(id, callback) {
   });
 }
 
-exports.isUserAdmin = function(email, callback) {
-  User.findOne({email: new RegExp('^'+email+'$', "i"), roles:[{name:'admin'}]}, function(err, user) {
-    if (err || !user) { callback(err, null); }
-    else { callback(null, user); }
-  });
-}
-
 exports.login = function(id, callback) {
   this.findUserById(id, function(err, user) {
     if (!user)  { 
