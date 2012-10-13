@@ -48,8 +48,10 @@ describe('Find a workspace with correct name and owner', function() {
 				});
 			});
 		});
-		it('should be true', function() {
+		it('should return a workspace', function() {
 			assert.exists(workspaceFound);
+			workspaceFound.should.have.property('name', 'Fake Workspace');
+ 			workspaceFound.should.have.property('description', 'This is a fake workspace created by automated test');
 		});
 	});
 });
