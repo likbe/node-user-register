@@ -36,7 +36,7 @@ describe('Register a user', function() {
 		it('should save a user into MongoDb', function() {
  			should.exist(currentUser, 'User should not be null');
  			currentUser.should.have.property('firstname', 'John');
- 			currentUser.should.have.property('lastname'), 'Doe';
+ 			currentUser.should.have.property('lastname', 'DOE');
  			currentUser.should.have.property('email', 'john.doe9@fake.com');
  			currentUser.should.have.property('active', false);
  		});
