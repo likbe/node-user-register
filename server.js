@@ -80,13 +80,6 @@ var registerRouter = require('./routes/registerRoute.js');
 var accountRouter = require('./routes/accountRoute.js');
 var workspaceRouter = require('./routes/workspaceRoute.js');
 
-ensureAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.redirect('/user/login');
-};
-
 app.get('/', home.index);
 
 app.get('/user/register', registerRouter.index);
@@ -105,12 +98,12 @@ app.post('/user/login',
     accountRouter.login(res, req.user);
   });
 
-app.get('/user/dashboard', ensureAuthenticated, accountRouter.dashboard);
+app.get('/user/dashboard', authorizationService.ensureSecurity, accountRouter.dashboard);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 
-app.get('/workspace/create', ensureAuthenticated, workspaceRouter.createNew);
+app.get('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.createNew);
 app.post('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.create);
 app.get('/workspace/:workspaceId', authorizationService.ensureSecurity, workspaceRouter.view);
 
