@@ -52,7 +52,7 @@ exports.activateUser = function(activationKey, password, callback) {
     UserActivation.findOne({activationKey: activationKey}, function(err, userActivation) {
       if (err || !userActivation) { callback(err); }
       else {
-        User.findOneAndUpdate({_id: userActivation.user_id}, { $set: { password:hash, active:true } }, { new:true, upsert:false }, function(err, user) {
+        User.findOneAndUpdate({_id: userActivation.user_id}, { $set: { password:hash, active:true, roles: [{name:'workspaceCreator'}] } }, { new:true, upsert:false }, function(err, user) {
           if (err || !user) callback(err);
           else callback(null, user);
         });
