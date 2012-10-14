@@ -79,6 +79,9 @@ var home = require('./routes/homeRoute.js');
 var registerRouter = require('./routes/registerRoute.js');
 var accountRouter = require('./routes/accountRoute.js');
 var workspaceRouter = require('./routes/workspaceRoute.js');
+var dashboardRouter = require('./routes/dashboardRoute.js');
+
+var workspaceService = require('./services/workspaceRestService.js');
 
 app.get('/', home.index);
 
@@ -98,7 +101,7 @@ app.post('/user/login',
     accountRouter.login(res, req.user);
   });
 
-app.get('/user/dashboard', authorizationService.ensureSecurity, accountRouter.dashboard);
+app.get('/user/dashboard', authorizationService.ensureSecurity, dashboardRouter.dashboard);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
@@ -106,6 +109,8 @@ app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 app.get('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.createNew);
 app.post('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.create);
 app.get('/workspace/:workspaceId', authorizationService.ensureSecurity, workspaceRouter.view);
+
+app.get('/services/workspacesList', authorizationService.ensureSecurity, workspaceService.getWorkspacesByOwner);
 
 server.listen(config.node.port);
 console.log("NodeJS is listening on http:/"+config.node.host+":"+config.node.port);
