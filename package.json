@@ -1,6 +1,6 @@
 {
   "name": "node-user-registration",
-  "version": "0.0.1-40",
+  "version": "0.0.1-41",
   "description": "A user registration system",
   "keywords": [
     "registration",
@@ -34,7 +34,7 @@
     "jade": "0.27.x",
     "uuid-js": "0.7.x",
     "string": "1.0.x",
-    "moment: "1.7.x"
+    "moment": "1.7.x"
   },
   "bundleDependencies": [
     "mocha",
