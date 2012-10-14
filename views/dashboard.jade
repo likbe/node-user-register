@@ -1,9 +1,10 @@
 extends layoutAuthenticated
 block head
-  script(type='text/javascript', src='/static/js/angular.js')
-  script(type='text/javascript', src='/static/js/workspaceController.js')
-  script(type='text/javascript', src='/static/js/moment.js')
+  script(type='text/javascript', src='http://code.angularjs.org/1.0.1/angular.js')
   script(type='text/javascript', src='http://code.angularjs.org/1.0.1/angular-resource-1.0.1.js')
+  script(type='text/javascript', src='/static/js/moment.js')
+  script(type='text/javascript', src='/static/js/workspaceController.js')
+
 block content
   div(class='form-unit')
     - if (workspaces.length > 0)
@@ -14,7 +15,7 @@ block content
           div(ng-repeat="workspace in workspaces")
             a(href='/workspace/{{workspace._id}}')
               div(class='gridRow')
-                span {{workspace.name}}
+                span {{workspace.name}} 
+                span - created {{workspace.creationDate}}
       p
-        a(href='/workspace/create') Create a new workspace          
-            
+        a(href='/workspace/create') Create a new workspace

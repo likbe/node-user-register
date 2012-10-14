@@ -11,7 +11,7 @@ angular.module('userProfileModule', [])
     }
 })
 
-var defaultGravatarUrl = 'http://img.clubic.com/05326940-photo-serrure-carte-onity.jpg';
+var defaultGravatarUrl = 'http://likbe.jit.su/static/img/unknown-user.png';
 
 function getGravatar(email, size)
 {
