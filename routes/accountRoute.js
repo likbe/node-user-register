@@ -12,6 +12,7 @@ exports.logout = function(req, res) {
 	if (req.user) {
 		accountService.logout(req.user, function(err, done) {
 			req.logOut();
+			res.clearCookie('connect.sid', {path:'/'});
 			res.redirect('/');	
 		});
 	}
