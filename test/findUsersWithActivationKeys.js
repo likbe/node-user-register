@@ -14,7 +14,7 @@ function initializeUsers(cb) {
 		User.remove(function() {
 			UserActivation.remove(function() {
 				register.registerUser('smith@fake.com', 'Mike', 'Smith', function(err, result) {
-					register.registerUser('john.doe6@fake.com', 'John', 'Doe', function(err, result) {
+					register.registerUser('john.doe@fake.com', 'John', 'Doe', function(err, result) {
 						cb(result);
 					});
 				});

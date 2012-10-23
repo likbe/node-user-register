@@ -7,9 +7,11 @@ var S = require("string");
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
 var account = require('./accountService.js');
+var passwordService = require('./passwordService.js');
 var mailService = require('./mailService.js');
 var logger = require("./loggerService.js").logger;
 var errors = require("./errors.js");
+var cryptographicService = require("./cryptographicService.js");
 
 
 exports.registerUser = function(email, firstname, lastname, callback) {
@@ -48,12 +50,12 @@ exports.findUserByActivationKey = function(activationKey, callback) {
 }
 
 exports.activateUser = function(activationKey, password, callback) {
-  account.cryptPassword(password, function(err, hash) {
+  cryptographicService.cryptPassword(password, function(err, hash) {
     UserActivation.findOne({activationKey: activationKey}, function(err, userActivation) {
       if (err || !userActivation) { callback(err); }
       else {
         User.findOneAndUpdate({_id: userActivation.user_id}, { $set: { password:hash, active:true, roles: [{name:'workspaceCreator'}] } }, { new:true, upsert:false }, function(err, user) {
-          if (err || !user) callback(err);
+          if (err || !user) callback(err, null);
           else callback(null, user);
         });
       }

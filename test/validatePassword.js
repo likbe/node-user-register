@@ -2,7 +2,7 @@ var should = require("should")
 var mongoose = require("mongoose");
 
 var register = require('../apis/registerService.js');
-var account = require('../apis/accountService.js');
+var password = require('../apis/passwordService.js');
 
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
@@ -42,7 +42,7 @@ describe('Validate password', function() {
 	describe('using a valid password', function() {
 		before(function(done) {
 			initializeUser(function() {
-				account.validatePassword('john.doe@fake.com', 'password', function(err, user) {
+				password.validatePassword('john.doe@fake.com', 'password', function(err, user) {
 					currentUser = user;
 					error = err;
 					closeConnection();
@@ -68,7 +68,7 @@ describe('Validate password', function() {
 	describe('using an unknown user', function() {
 		before(function(done) {
 			initializeUser(function() {
-				account.validatePassword('unknown@fake.com', 'password', function(err, user) {
+				password.validatePassword('unknown@fake.com', 'password', function(err, user) {
 					currentUser = user;
 					error = err;
 					closeConnection();
@@ -92,7 +92,7 @@ describe('Validate password', function() {
 		before(function(done) {
 			initializeUser(function() {
 				register.desactivateUser('fb6b4c32-7a2c-407e-b69e-9b6df92c71d5', function(err) {
-					account.validatePassword('john.doe@fake.com', 'wrongPassword', function(err, user) {
+					password.validatePassword('john.doe@fake.com', 'wrongPassword', function(err, user) {
 						currentUser = user;
 						error = err;
 						closeConnection();
@@ -116,7 +116,7 @@ describe('Validate password', function() {
 	describe('using a wrong password', function() {
 		before(function(done) {
 			initializeUser(function() {
-				account.validatePassword('john.doe@fake.com', 'wrongPassword', function(err, user) {
+				password.validatePassword('john.doe@fake.com', 'wrongPassword', function(err, user) {
 					currentUser = user;
 					error = err;
 					closeConnection();

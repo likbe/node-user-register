@@ -7,6 +7,7 @@ var path = require("path");
 var mongoose = require("mongoose");
 var errors = require("./apis/errors.js");
 var accountService = require("./apis/accountService.js");
+var passwordService = require("./apis/passwordService.js");
 var authorizationService = require("./apis/authorizationService.js")
 
 var passport = require("passport");
@@ -26,7 +27,7 @@ passport.deserializeUser(function(id, done) {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {   
-        accountService.validatePassword(username, password, function(err, user) {
+        passwordService.validatePassword(username, password, function(err, user) {
             if (err) {
               if (err == errors.INVALID_PASSWORD_USER_DOES_NOT_EXIST) { return done(null, false, {message: 'Unknown user ' + username}); }
               else if (err == errors.INVALID_PASSWORD_USER_IS_NOT_ACTIVE) { return done(null, false, {message: 'User is inactive'}); }
@@ -91,6 +92,9 @@ app.get('/user/desactivateUser/:activationKey', registerRouter.desactivateUser);
 app.get('/users', authorizationService.ensureSecurity, registerRouter.listUsers);
 app.post('/user/register', registerRouter.registerUser);
 app.post('/user/activate', registerRouter.activateUser);
+app.get('/user/dashboard', authorizationService.ensureSecurity, dashboardRouter.dashboard);
+app.get('/user/account', authorizationService.ensureSecurity, accountRouter.myAccount);
+app.post('/user/changePassword', authorizationService.ensureSecurity, accountRouter.changePassword);
 
 app.get('/user/login', function(req, res, next) {
   res.render('signin', {message: req.flash('error')});
@@ -100,8 +104,6 @@ app.post('/user/login',
   function(req, res) {
     accountRouter.login(res, req.user);
   });
-
-app.get('/user/dashboard', authorizationService.ensureSecurity, dashboardRouter.dashboard);
 app.post('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
@@ -109,7 +111,6 @@ app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 app.get('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.createNew);
 app.post('/workspace/create', authorizationService.ensureSecurity, workspaceRouter.create);
 app.get('/workspace/:workspaceId', authorizationService.ensureSecurity, workspaceRouter.view);
-
 app.get('/services/workspacesList', authorizationService.ensureSecurity, workspaceService.getWorkspacesByOwner);
 
 server.listen(config.node.port);

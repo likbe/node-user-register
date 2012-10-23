@@ -10,7 +10,7 @@ var conn;
 function initializeUser(cb) {
 	User.remove(function() {	
 		UserActivation.remove(function() {
-			registerService.registerUser('john.doe9@fake.com', 'John', 'Doe', function(err, user) {
+			registerService.registerUser('john.doe@fake.com', 'John', 'Doe', function(err, user) {
 				cb(err, user);
 			});
 		});
@@ -37,7 +37,7 @@ describe('Register a user', function() {
  			should.exist(currentUser, 'User should not be null');
  			currentUser.should.have.property('firstname', 'John');
  			currentUser.should.have.property('lastname', 'DOE');
- 			currentUser.should.have.property('email', 'john.doe9@fake.com');
+ 			currentUser.should.have.property('email', 'john.doe@fake.com');
  			currentUser.should.have.property('active', false);
  		});
 	});

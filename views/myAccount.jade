@@ -1,0 +1,29 @@
+extends layoutAuthenticated
+block head
+  script(type='text/javascript', src='/static/js/angular.js')
+block content
+  div(class='form-unit')
+    - if (user)
+      h2 Your account informations
+      div(ng-controller='AccountPasswordCtrl')
+      form(name='formAccountInfosEdit',action='changePassword',method='post', novalidate)
+        div
+          label Actual password
+          input(id='fn',name='actualPassword',type='password', ng-required='true')
+          span(ng-show='formAccountInfosEdit.actualPassword.$error.required', class='error-message')  *
+        div
+          label New password
+          input(id='fn',name='newPassword',type='password', ng-required='true')
+          span(ng-show='formAccountInfosEdit.newPassword.$error.required', class='error-message')  *
+        div
+          label Confirm password
+          input(id='fn',name='confirmPassword',type='password', ng-required='true')
+          span(ng-show='formAccountInfosEdit.confirmPassword.$error.required', class='error-message')  *
+        - if (success != '')
+          div(class='alert alert-success') 
+            span #{success} 
+        - if (error != '')
+          div(class='alert alert-error') 
+            span #{error} 
+        div
+          button(type='submit',ng-disabled='formRegister.$invalid') Change Password

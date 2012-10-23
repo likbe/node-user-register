@@ -13,7 +13,7 @@ var conn;
 function initializeUser(cb) {
 	var userId = new mongoose.Types.ObjectId;
 	conn = mongoose.connect('mongodb://localhost/likbe-test');
-	var email = "john.doe5@fake.com", firstname="John", lastname = "Doe";
+	var email = "john.doe@fake.com", firstname="John", lastname = "Doe";
 	var user = new User({ _id:userId, email:email, firstname:firstname, lastname:lastname, active:false });
 		user.save(function (err) {
 		cb(user);
