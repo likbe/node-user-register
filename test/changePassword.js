@@ -6,6 +6,7 @@ var bcrypt = require("bcrypt");
 var registerService = require('../apis/registerService.js');
 var passwordService = require('../apis/passwordService.js');
 var cryptographicService = require('../apis/cryptographicService.js');
+var errors = require('../apis/errors.js');
 
 var User = require('../models/user.js');
 var UserActivation = require('../models/userActivation.js');
@@ -70,3 +71,55 @@ describe('Change password', function() {
 		});
 	});
 });
+
+describe('Change password', function() {
+	var currentUser;
+	var currentUserUpdated;
+	var currentError;
+
+	describe('with a wrong actual password', function() {
+		before(function(done) {
+			initializeUser(function (err, user) {
+				currentUser = user;
+				 passwordService.changePassword(user.email, 'password-bad', 'newpassword', 'newpassword', function(err, user2) {
+				 	currentUserUpdated = user2;
+				 	currentError = err;
+ 				 	closeConnection();
+				 	done();
+ 				});
+			});
+		});
+		it('should return INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH error and not update user password in MongoDb', function() {
+ 			should.exist(currentUser, 'User should not be null');
+ 			should.not.exist(currentUserUpdated, 'Updated user should be null');
+			assert.equal(errors.INVALID_PASSWORD_PASSWORD_DOES_NOT_MATCH, currentError);
+		});
+	});
+});
+
+describe('Change password', function() {
+	var currentUser;
+	var currentUserUpdated;
+	var currentError;
+
+	describe('with a correct actual password but a mismatch new password - confirmation password', function() {
+		before(function(done) {
+			initializeUser(function (err, user) {
+				currentUser = user;
+				 passwordService.changePassword(user.email, 'password', 'newpassword', 'newpassword-fail', function(err, user2) {
+				 	currentUserUpdated = user2;
+				 	currentError = err;
+ 				 	closeConnection();
+				 	done();
+ 				});
+			});
+		});
+		it('should return CHANGE_PASSWORD_CONFIRMATION_DOES_NOT_MATCH error and not update user password in MongoDb', function() {
+ 			should.exist(currentUser, 'User should not be null');
+ 			should.not.exist(currentUserUpdated, 'Updated user should be null');
+			assert.equal(errors.CHANGE_PASSWORD_CONFIRMATION_DOES_NOT_MATCH, currentError);
+		});
+	});
+});
+
+

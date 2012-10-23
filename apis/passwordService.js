@@ -47,16 +47,10 @@ exports.changePassword = function(login, actualPassword, newPassword, confirmPas
         accountService.findUserByEmail(login, function(err, user) {
             cryptographicService.cryptPassword(newPassword, function(err2, hash) {
             User.update({email:login}, {$set: {password:hash}}, function(err3) {
-              if (err2||err3) {
-                logger.error('changePassword - User:' + login.toLowerCase() + ' cannot be updated');
-                callback(errors.CHANGEPASSWORD_FAILED_DUE_TO_TECHNICAL_ERROR, null);
-              }
-              else {
                 logger.info('changePassword - User:' + login.toLowerCase() + ' \'s password is now changed');
                 accountService.findUserByEmail(login, function(err, user) {
                   callback(err || err2 || err3, user);
                 });
-              }
             });
           });
         }); 

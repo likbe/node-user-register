@@ -9,15 +9,9 @@ exports.cryptPassword = function(password, callback) {
     if (err) callback(err);
       else {
         bcrypt.hash(password, salt, function(err, hash) { 
-          if (err) {
-            logger.error('cryptPassword - Failed to hash password');
-           callback(err);
-           }
-          else {
             logger.info('cryptPassword - Hashed password to: ' + hash);
-            callback(null, hash)
-          }
-      });
+            callback(err, hash)
+        });
       }
   });
 }

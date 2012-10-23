@@ -17,8 +17,7 @@ Object.defineProperty(errors,'COULD_NOT_SEARCH_WORKSPACE_BY_OWNER',{value:999992
 Object.defineProperty(errors,'WORKSPACE_ALREADY_EXISTS',{value:999991});
 
 //CHANGE PASSWORD
-Object.defineProperty(errors,'CHANGEPASSWORD_FAILED_DUE_TO_TECHNICAL_ERROR',{value:999990});
-Object.defineProperty(errors,'CHANGE_PASSWORD_CONFIRMATION_DOES_NOT_MATCH',{value:999989});
+Object.defineProperty(errors,'CHANGE_PASSWORD_CONFIRMATION_DOES_NOT_MATCH',{value:999990});
 
 module.exports = errors; 
 
