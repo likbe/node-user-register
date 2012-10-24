@@ -1,6 +1,14 @@
 Node.JS User Registration 
 =========================
 
+DISCLAIMER / WARNING :
+
+This code is NOT STABLE, do NOT use it for production uses
+
+USAGE :
+
+Use make to generate code coverage
+
 DEPENDENCIES:
 
 Core :
