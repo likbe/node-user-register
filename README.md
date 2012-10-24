@@ -1,15 +1,34 @@
 Node.JS User Registration 
 =========================
 
-DISCLAIMER / WARNING :
+PROJECT GOALS :
+---------------
+Main goals are to provide the following features :
 
+- Sign up
+- Activation link send thru Mandrill (Mailchimp service)
+- Sign in
+- Logout
+- Password management :
+  . Change Password
+  . Forgot Password (not implemented yet)
+ - User profile informations (not implemented yet)
+
+DISCLAIMER / WARNING :
+----------------------
 This code is NOT STABLE, do NOT use it for production uses
 
-USAGE :
+DEMO SITE :
+-----------
+A demo site is available at : http://likbe.jit.su
 
+USAGE :
+-------
 Use make to generate code coverage
 
-DEPENDENCIES:
+
+PROJECT DEPENDENCIES :
+----------------------
 
 Core :
 ------
