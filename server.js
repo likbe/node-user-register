@@ -102,9 +102,10 @@ app.get('/user/login', function(req, res, next) {
 app.post('/user/login',
  passport.authenticate('local', { failureRedirect: '/user/login', failureFlash: true }),
   function(req, res) {
+    // Called only if succeed
     accountRouter.login(res, req.user);
   });
-app.post('/user/logout', accountRouter.logout);
+app.get('/user/logout', accountRouter.logout);
 
 app.post('/user/resend-activation-link', registerRouter.resendActivationLink)
 

@@ -7,7 +7,6 @@ head
   script(type='text/javascript', src='/static/js/jquery.js')
   script(type='text/javascript', src='/static/js/angular.js')
   script(type='text/javascript', src='/static/js/userprofile.js')
-  script(type='text/javascript', src='/static/js/logout.js')
   block head
 body(ng-app='LikbeApp')
   div(class='navbar navbar-inverse navbar-fixed-top')
@@ -36,10 +35,9 @@ body(ng-app='LikbeApp')
             li(class='header-top')
                 div(class='header-top')
                   p(class='header-top') #{user.firstname} #{user.lastname}
-                    form(id='form-signout',action='/user/logout',method='post')
-                      div(class='header-sub')
-                       a(href='#', id='logout-action')
-                         span Sign Out
+                    div(class='header-sub')
+                     a(href='/user/logout')
+                       span Sign Out
             li(class='active')   
               div(class='photo-id')
                 user-profile(class='userphoto', email='#{user.email}')
