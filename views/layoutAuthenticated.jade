@@ -19,18 +19,36 @@ body(ng-app='LikbeApp')
         a(class='brand', href='/') LikBe
         div(class='nav-collapse collapse')
           ul(class='nav')
-            li(class='active') 
-              a(href='/') 
-                div
-                  p Home
-            li(class='active') 
-              a(href='/user/dashboard') 
-                div
-                  p Dashboard
-            li(class='active') 
-              a(href='/user/account') 
-                div
-                  p My Account
+            - if (currentpage == 'Home')
+              li(class='active')
+                a(href='/') 
+                  div
+                    p Home
+            - else
+              li 
+                a(href='/') 
+                  div
+                    p Home
+            - if (currentpage == 'Dashboard')
+              li(class='active') 
+                a(href='/user/dashboard') 
+                  div
+                    p Dashboard
+            - else
+              li
+                a(href='/user/dashboard')
+                  div
+                    p Dashboard
+            - if (currentpage == 'MyAccount')
+              li(class='active') 
+                a(href='/user/account') 
+                  div
+                    p My Account
+            - else
+              li 
+                a(href='/user/account') 
+                  div
+                    p My Account
           ul(class='nav pull-right')
             li(class='header-top')
                 div(class='header-top')

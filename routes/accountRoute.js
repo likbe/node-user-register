@@ -22,7 +22,7 @@ exports.logout = function(req, res) {
 
 exports.myAccount = function(req, res) {
 	if (req.user) {
-		res.render('myAccount', { user : req.user, success: req.flash('changepassword-ok'), error: req.flash('changepassword-error')});
+		res.render('myAccount', { user : req.user, currentpage:'MyAccount', success: req.flash('changepassword-ok'), error: req.flash('changepassword-error')});
 	}
 }
 

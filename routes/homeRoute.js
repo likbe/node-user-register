@@ -1,10 +1,10 @@
 exports.index = function(req, res) {
 	var currentLayout = getLayout(req); 
 	 if (currentLayout == 'layout') { 
-		res.render('home', {layout:currentLayout});
+		res.render('home', {layout:currentLayout, currentpage:'Home'});
 	}
 	else {
-		res.render('homeAuthenticated', {layout:currentLayout, user:req.user});
+		res.render('homeAuthenticated', {layout:currentLayout, user:req.user, currentpage:'Home'});
 	}
 }
 

@@ -4,7 +4,7 @@ var register = require('../apis/registerService.js');
 var errors = require('../apis/errors.js');
 
 exports.index = function(req, res) {
-   res.render('register', {user : null, success: req.flash('register-ok'), error: req.flash('register-error')});
+   res.render('register', {user : null, currentpage:'SignUp', success: req.flash('register-ok'), error: req.flash('register-error')});
 }
 
 exports.registerUser = function(req, res) {

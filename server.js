@@ -97,7 +97,7 @@ app.get('/user/account', authorizationService.ensureSecurity, accountRouter.myAc
 app.post('/user/changePassword', authorizationService.ensureSecurity, accountRouter.changePassword);
 
 app.get('/user/login', function(req, res, next) {
-  res.render('signin', {message: req.flash('error')});
+  res.render('signin', {message: req.flash('error'), currentpage:'SignIn'});
 });
 app.post('/user/login',
  passport.authenticate('local', { failureRedirect: '/user/login', failureFlash: true }),
