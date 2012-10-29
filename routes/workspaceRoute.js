@@ -22,12 +22,12 @@ exports.create = function(req, res) {
 
 exports.createNew = function(req, res) {
     workspaceService.findWorkspacesByOwner(req.user._id, function(err, workspaces) {
-    res.render('workspaceCreate', {user : req.user, layout : 'layoutAuthenticated', workspaces: workspaces});
+    res.render('workspaceCreate', {user : req.user, layout : 'layoutAuthenticated', currentpage:'Dashboard', workspaces: workspaces});
   });
 }
 
 exports.view = function(req, res) {
   workspaceService.findWorkspaceByIdAndUser(req.params.workspaceId, req.user._id, function(err, workspace) {
-    res.render('workspace', {user : req.user, layout: 'layoutAuthenticated', workspace: workspace});
+    res.render('workspace', {user : req.user, currentpage:'Dashboard', layout: 'layoutAuthenticated', workspace: workspace});
   });
 }

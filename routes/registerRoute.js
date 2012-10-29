@@ -56,9 +56,9 @@ exports.listUsers = function(req, res) {
   register.findUsersWithActivationKeys(function (err, usersWithUserActivations)
   {
     if (err) {
-      res.render('error',{ error : { message :'Sorry, we cannot list users at this time'}});
+      res.render('error',{ error : { message :'Sorry, we cannot list users at this time'}, currentpage:'Home'});
     }
-    else res.render('users', {usersWithUserActivations: usersWithUserActivations});
+    else res.render('users', {usersWithUserActivations: usersWithUserActivations, currentpage:'Home'});
   });
 }
 
